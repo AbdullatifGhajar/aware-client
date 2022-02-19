@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -43,12 +42,10 @@ public class JoinStudyDialog extends DialogFragment {
         final View dialogView = inflater.inflate(R.layout.dialog_join_study, null);
 
         builder.setView(dialogView);
-        builder.setTitle("Enter URL for study")
-                .setPositiveButton("Join", new DialogInterface.OnClickListener() {
+        builder.setTitle("Study will be loaded. Make sure you have internet.")
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText etStudyConfigUrl = dialogView.findViewById(R.id.et_join_study_url);
-//                        validateStudyConfig(etStudyConfigUrl.getText().toString());
-                        new ValidateStudyConfig().execute(etStudyConfigUrl.getText().toString());
+                        new ValidateStudyConfig().execute("https://drive.google.com/file/d/1VBFryE_PLrd3S3LZXDhkO9VMfqURBG0J/view?usp=sharing");
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
