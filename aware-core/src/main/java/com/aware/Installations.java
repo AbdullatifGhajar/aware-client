@@ -36,7 +36,7 @@ import com.aware.utils.Aware_Sensor;
 
 public class Installations extends Aware_Sensor {
 
-    private static String TAG = "AWARE::Installations";
+    private static final String TAG = "AWARE::Installations";
 
     /**
      * Broadcasted event: new application has been installed

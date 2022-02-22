@@ -87,10 +87,10 @@ public class SSLManager {
     }
 
     public static class CheckCertificates extends AsyncTask<X509Certificate, Void, Void> {
-        private String url;
+        private final String url;
         private String protocol;
-        private String hostname;
-        private Context context;
+        private final String hostname;
+        private final Context context;
 
         CheckCertificates(Context context, String URL) {
             this.url = URL;
@@ -185,7 +185,7 @@ public class SSLManager {
         try {
             X509Certificate certificate = retrieveRemoteCertificate(new URL(protocol+"://"+hostname));
             byte[] certificate_data = certificate.getEncoded();
-            FileOutputStream outputStream = new FileOutputStream(new File(root_folder.toString() + "/server.crt"));
+            FileOutputStream outputStream = new FileOutputStream(new File(root_folder + "/server.crt"));
             outputStream.write(certificate_data);
             outputStream.close();
         } catch (CertificateEncodingException | IOException | NullPointerException e) {

@@ -156,7 +156,7 @@ public class ESM_Likert extends ESM_Question {
                         answer.putExtra(ESM.EXTRA_ANSWER, rowData.getAsString(ESM_Provider.ESM_Data.ANSWER));
                         getActivity().sendBroadcast(answer);
 
-                        if (Aware.DEBUG) Log.d(Aware.TAG, "Answer:" + rowData.toString());
+                        if (Aware.DEBUG) Log.d(Aware.TAG, "Answer:" + rowData);
 
                         esm_dialog.dismiss();
                     } catch (JSONException e) {

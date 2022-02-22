@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class PermissionsHandler extends Activity {
 
-    private String TAG = "PermissionsHandler";
+    private final String TAG = "PermissionsHandler";
 
     /**
      * Extra ArrayList<String> with Manifest.permission that require explicit users' permission on Android API 23+

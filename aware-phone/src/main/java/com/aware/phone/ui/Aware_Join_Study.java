@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
 import com.aware.phone.R;
+import com.aware.phone.ServerInterface;
 import com.aware.phone.ui.dialogs.JoinStudyDialog;
 import com.aware.phone.utils.AwareUtil;
 import com.aware.providers.Aware_Provider;
@@ -64,7 +65,7 @@ public class Aware_Join_Study extends Aware_Activity {
 
         pluginsInstalled = false;
 
-        EditText participant_label = findViewById(R.id.participant_label);
+        EditText participant_label = findViewById(R.id.participant_email);
         participant_label.setText(Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_LABEL));
         participant_label.addTextChangedListener(new TextWatcher() {
             @Override
@@ -152,20 +153,26 @@ public class Aware_Join_Study extends Aware_Activity {
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = ((EditText)findViewById(R.id.participant_email)).getText().toString();
+                String password = ((EditText)findViewById(R.id.participant_password)).getText().toString();
 
-                btnAction.setEnabled(false);
-                btnAction.setAlpha(0.5f);
+                if(ServerInterface.Companion.authenticateUser(email, password)){
+                    btnAction.setEnabled(false);
+                    btnAction.setAlpha(0.5f);
+                    Cursor study = Aware.getStudy(getApplicationContext(), study_url);
+                    if (study != null && study.moveToFirst()) {
+                        ContentValues studyData = new ContentValues();
+                        studyData.put(Aware_Provider.Aware_Studies.STUDY_JOINED, System.currentTimeMillis());
+                        studyData.put(Aware_Provider.Aware_Studies.STUDY_EXIT, 0);
+                        getContentResolver().update(Aware_Provider.Aware_Studies.CONTENT_URI, studyData, Aware_Provider.Aware_Studies.STUDY_URL + " LIKE '" + study_url + "'", null);
+                    }
+                    if (study != null && !study.isClosed()) study.close();
 
-                Cursor study = Aware.getStudy(getApplicationContext(), study_url);
-                if (study != null && study.moveToFirst()) {
-                    ContentValues studyData = new ContentValues();
-                    studyData.put(Aware_Provider.Aware_Studies.STUDY_JOINED, System.currentTimeMillis());
-                    studyData.put(Aware_Provider.Aware_Studies.STUDY_EXIT, 0);
-                    getContentResolver().update(Aware_Provider.Aware_Studies.CONTENT_URI, studyData, Aware_Provider.Aware_Studies.STUDY_URL + " LIKE '" + study_url + "'", null);
+                    new JoinStudyAsync().execute();
                 }
-                if (study != null && !study.isClosed()) study.close();
-
-                new JoinStudyAsync().execute();
+                else{
+                    Toast.makeText(getApplicationContext(), "invalid email or password", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -275,8 +282,8 @@ public class Aware_Join_Study extends Aware_Activity {
         ProgressDialog mPopulating;
 
         private String study_url = "";
-        private String study_api_key = "";
-        private String study_id = "";
+        private final String study_api_key = "";
+        private final String study_id = "";
         private String study_config = "";
 
         @Override
@@ -356,7 +363,7 @@ public class Aware_Join_Study extends Aware_Activity {
                         getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                         if (Aware.DEBUG) {
-                            Log.d(Aware.TAG, "New study data: " + studyData.toString());
+                            Log.d(Aware.TAG, "New study data: " + studyData);
                         }
                     } else {
                         //Update the information to the latest
@@ -376,7 +383,7 @@ public class Aware_Join_Study extends Aware_Activity {
                         getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                         if (Aware.DEBUG) {
-                            Log.d(Aware.TAG, "Re-scanned study data: " + studyData.toString());
+                            Log.d(Aware.TAG, "Re-scanned study data: " + studyData);
                         }
                     }
 
@@ -474,7 +481,7 @@ public class Aware_Join_Study extends Aware_Activity {
         }
     }
 
-    private static PluginCompliance pluginCompliance = new PluginCompliance();
+    private static final PluginCompliance pluginCompliance = new PluginCompliance();
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -639,7 +646,7 @@ public class Aware_Join_Study extends Aware_Activity {
     }
 
     public class SensorsAdapter extends RecyclerView.Adapter<SensorsAdapter.ViewHolder> {
-        private ArrayList<SensorInfo> mDataset;
+        private final ArrayList<SensorInfo> mDataset;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public TextView txtSensorName;
@@ -675,7 +682,7 @@ public class Aware_Join_Study extends Aware_Activity {
     }
 
     public class PluginsAdapter extends RecyclerView.Adapter<PluginsAdapter.ViewHolder> {
-        private ArrayList<PluginInfo> mDataset;
+        private final ArrayList<PluginInfo> mDataset;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             public TextView txtPackageName;

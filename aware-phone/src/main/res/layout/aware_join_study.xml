@@ -31,42 +31,61 @@
                     android:textSize="18dp"
                     android:textStyle="bold" />
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:padding="5dp">-->
+                <!--                <LinearLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:padding="5dp">-->
 
-                    <LinearLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:id="@+id/txt_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="5dp">
+                        android:text="Description" />
 
-                        <TextView
-                            android:id="@+id/txt_description"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Description" />
+                    <TextView
+                        android:id="@+id/txt_researcher"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Researcher" />
 
-                        <TextView
-                            android:id="@+id/txt_researcher"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="Researcher" />
-                        <TextView
-                                android:text="Onboarding"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content" android:id="@+id/textView" android:textStyle="bold"
-                                android:layout_marginTop="15dp"/>
-                        <EditText
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:ems="10"
-                                android:id="@+id/participant_label"
-                                android:inputType="textEmailAddress" android:hint="Your email address"/>
-                    </LinearLayout>
-<!--                </LinearLayout>-->
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="Onboarding"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/participant_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Your email address"
+                        android:importantForAutofill="no"
+                        android:inputType="textEmailAddress"
+                        android:minHeight="48dp"
+                        android:textColorHint="#757575" />
+
+                    <EditText
+                        android:id="@+id/participant_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Password"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:minHeight="48dp" />
+
+                </LinearLayout>
+                <!--                </LinearLayout>-->
             </LinearLayout>
 
             <LinearLayout
@@ -90,7 +109,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp">
-<!--                    android:scrollbars="vertical">-->
+                    <!--                    android:scrollbars="vertical">-->
 
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
@@ -116,7 +135,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:padding="5dp">
-<!--                    android:scrollbars="vertical">-->
+                    <!--                    android:scrollbars="vertical">-->
 
                 </androidx.recyclerview.widget.RecyclerView>
             </LinearLayout>
@@ -136,9 +155,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_weight="0.09"
-            android:layout_marginRight="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="0.09"
             android:background="@android:color/holo_red_light"
             android:text="Quit study"
             android:textColor="@android:color/white" />
@@ -157,13 +176,14 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 
-<!--    <include-->
-<!--        android:id="@+id/aware_bottombar"-->
-<!--        layout="@layout/aware_controller" />-->
+    <!--    <include-->
+    <!--        android:id="@+id/aware_bottombar"-->
+    <!--        layout="@layout/aware_controller" />-->
 
-    <ListView android:id="@android:id/list"
+    <ListView
+        android:id="@android:id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </LinearLayout>

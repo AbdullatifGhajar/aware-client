@@ -16,6 +16,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -123,7 +124,7 @@ public class Https {
             }
 
             OutputStream os = path_connection.getOutputStream();
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8));
             writer.write(builder.build().getEncodedQuery());
             writer.flush();
             writer.close();
@@ -148,7 +149,7 @@ public class Https {
 
             String result;
             try (BufferedReader br = new BufferedReader(new InputStreamReader(stream))) {
-                StringBuilder page_content = new StringBuilder("");
+                StringBuilder page_content = new StringBuilder();
                 String line;
                 while ((line = br.readLine()) != null) {
                     page_content.append(line);

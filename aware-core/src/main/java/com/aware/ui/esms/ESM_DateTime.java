@@ -43,7 +43,7 @@ public class ESM_DateTime extends ESM_Question {
     }
 
     public class DateTimePagerAdapter extends PagerAdapter {
-        private Context mContext;
+        private final Context mContext;
 
         public DateTimePagerAdapter(Context context) {
             mContext = context;
@@ -203,7 +203,7 @@ public class ESM_DateTime extends ESM_Question {
                         answer.putExtra(ESM.EXTRA_ANSWER, rowData.getAsString(ESM_Provider.ESM_Data.ANSWER));
                         getActivity().sendBroadcast(answer);
 
-                        if (Aware.DEBUG) Log.d(Aware.TAG, "Answer:" + rowData.toString());
+                        if (Aware.DEBUG) Log.d(Aware.TAG, "Answer:" + rowData);
 
                         esm_dialog.dismiss();
 

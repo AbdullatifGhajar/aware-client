@@ -1,3 +1,6 @@
+@file:JvmName("ServerInterface")
+@file:JvmMultifileClass
+
 package com.aware.phone
 
 // import com.aware.phone.data.model.LoggedInUser
@@ -32,17 +35,16 @@ class ServerInterface {
             return JSONObject(responseBody)
         }
 
-        /* fun getAuthenticatedUser(email: String, password: String): LoggedInUser {
-            val responseJson = getFromServer(
-                "/users",
-                "email=$email&password=$password"
-            )
-
-            return LoggedInUser(
-                responseJson.getString("id"),
-                responseJson.getString("email"),
-                responseJson.getString("displayName")
-            )
-        } */
+        fun authenticateUser(email: String, password: String): Boolean {
+            return try {
+                getFromServer(
+                    "/users",
+                    "email=$email&password=$password"
+                )
+                true
+            } catch (e: ServerException) {
+                false
+            }
+        }
     }
 }

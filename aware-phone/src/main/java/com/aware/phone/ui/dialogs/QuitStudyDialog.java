@@ -26,7 +26,7 @@ import com.aware.providers.Aware_Provider;
  */
 public class QuitStudyDialog extends DialogFragment {
     private static final String TAG = "AWARE::QuitStudyDialog";
-    private Activity mActivity;
+    private final Activity mActivity;
     private ProgressBar mProgressBar;
 
     public QuitStudyDialog(Activity activity) {

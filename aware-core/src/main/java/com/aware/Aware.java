@@ -589,7 +589,7 @@ public class Aware extends Service {
                 Intent deviceData = new Intent(ACTION_AWARE_DEVICE_INFORMATION);
                 sendBroadcast(deviceData);
 
-                if (Aware.DEBUG) Log.d(TAG, "Device information:" + rowData.toString());
+                if (Aware.DEBUG) Log.d(TAG, "Device information:" + rowData);
 
             } catch (SQLiteException e) {
                 if (Aware.DEBUG) Log.d(TAG, e.getMessage());
@@ -640,7 +640,7 @@ public class Aware extends Service {
         log.put(Aware_Provider.Aware_Log.LOG_DEVICE_ID, Aware.getSetting(c, Aware_Preferences.DEVICE_ID));
         log.put(Aware_Provider.Aware_Log.LOG_MESSAGE, message);
 
-        if (Aware.DEBUG) Log.d(TAG, "Aware_Log: \n" + log.toString());
+        if (Aware.DEBUG) Log.d(TAG, "Aware_Log: \n" + log);
 
         c.getContentResolver().insert(Aware_Provider.Aware_Log.CONTENT_URI, log);
     }
@@ -882,10 +882,10 @@ public class Aware extends Service {
             ComponentName componentName;
             if (packageInfo.versionName.equals("bundled")) {
                 componentName = new ComponentName(context.getPackageName(), package_name + ".Plugin");
-                if (Aware.DEBUG) Log.d(Aware.TAG, "Stopping bundled: " + componentName.toString());
+                if (Aware.DEBUG) Log.d(Aware.TAG, "Stopping bundled: " + componentName);
             } else {
                 componentName = new ComponentName(package_name, package_name + ".Plugin");
-                if (Aware.DEBUG) Log.d(Aware.TAG, "Stopping external: " + componentName.toString());
+                if (Aware.DEBUG) Log.d(Aware.TAG, "Stopping external: " + componentName);
             }
 
             Intent pluginIntent = new Intent();
@@ -913,10 +913,10 @@ public class Aware extends Service {
             ComponentName componentName = null;
             if (packageInfo.versionName.equals("bundled")) {
                 componentName = new ComponentName(context.getPackageName(), package_name + ".Plugin");
-                if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing bundled: " + componentName.toString());
+                if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing bundled: " + componentName);
             } else {
                 componentName = new ComponentName(package_name, package_name + ".Plugin");
-                if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing external: " + componentName.toString());
+                if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing external: " + componentName);
             }
 
             Intent pluginIntent = new Intent();
@@ -927,10 +927,10 @@ public class Aware extends Service {
             if (componentName == null) {
                 if (packageInfo.versionName.equals("bundled")) {
                     componentName = new ComponentName(context.getPackageName(), package_name + ".PluginKt");
-                    if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing bundled: " + componentName.toString());
+                    if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing bundled: " + componentName);
                 } else {
                     componentName = new ComponentName(package_name, package_name + ".PluginKt");
-                    if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing external: " + componentName.toString());
+                    if (Aware.DEBUG) Log.d(Aware.TAG, "Initializing external: " + componentName);
                 }
 
                 pluginIntent = new Intent();
@@ -1794,7 +1794,7 @@ public class Aware extends Service {
                             getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                             if (Aware.DEBUG)
-                                Log.d(Aware.TAG, "New study data: " + studyData.toString());
+                                Log.d(Aware.TAG, "New study data: " + studyData);
 
                         } else {
                             ContentValues studyData = new ContentValues();
@@ -1813,7 +1813,7 @@ public class Aware extends Service {
                             getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                             if (Aware.DEBUG) {
-                                Log.d(Aware.TAG, "Rejoined study data: " + studyData.toString());
+                                Log.d(Aware.TAG, "Rejoined study data: " + studyData);
                             }
                         }
 
@@ -2049,7 +2049,7 @@ public class Aware extends Service {
                                         context.getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, complianceEntry);
 
                                         if (Aware.DEBUG)
-                                            Log.d(Aware.TAG, "Study compliance check: " + complianceEntry.toString());
+                                            Log.d(Aware.TAG, "Study compliance check: " + complianceEntry);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -2139,7 +2139,7 @@ public class Aware extends Service {
                                         context.getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, complianceEntry);
 
                                         if (Aware.DEBUG)
-                                            Log.d(Aware.TAG, "Study compliance check: " + complianceEntry.toString());
+                                            Log.d(Aware.TAG, "Study compliance check: " + complianceEntry);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -2206,7 +2206,7 @@ public class Aware extends Service {
                                     context.getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, complianceEntry);
 
                                     if (Aware.DEBUG)
-                                        Log.d(Aware.TAG, "Study compliance check: " + complianceEntry.toString());
+                                        Log.d(Aware.TAG, "Study compliance check: " + complianceEntry);
                                 }
                             }
                         } catch (JSONException e) {
@@ -2296,10 +2296,7 @@ public class Aware extends Service {
     public static class AwareBoot extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            boolean logging = false;
-            if ((context.getPackageName().equalsIgnoreCase("com.aware.phone") || context.getApplicationContext().getResources().getBoolean(R.bool.standalone))) {
-                logging = true;
-            }
+            boolean logging = context.getPackageName().equalsIgnoreCase("com.aware.phone") || context.getApplicationContext().getResources().getBoolean(R.bool.standalone);
 
             if (logging) {
                 try {
@@ -2347,7 +2344,7 @@ public class Aware extends Service {
                             || intent.getAction().equalsIgnoreCase(Intent.ACTION_SHUTDOWN)
                             || intent.getAction().equalsIgnoreCase(Intent.ACTION_REBOOT)) {
                         try {
-                            if (Aware.DEBUG) Log.d(TAG, "Battery: " + rowData.toString());
+                            if (Aware.DEBUG) Log.d(TAG, "Battery: " + rowData);
                             context.getContentResolver().insert(Battery_Provider.Battery_Data.CONTENT_URI, rowData);
                         } catch (SQLiteException e) {
                             if (Aware.DEBUG) Log.d(TAG, e.getMessage());
@@ -2387,32 +2384,16 @@ public class Aware extends Service {
 
         try {
             NetworkInfo active = connManager.getActiveNetworkInfo();
-            if (active != null && active.isConnectedOrConnecting()) {
-                complianceStatus.put("internet", true);
-            } else {
-                complianceStatus.put("internet", false);
-            }
+            complianceStatus.put("internet", active != null && active.isConnectedOrConnecting());
 
             NetworkInfo wifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (wifi != null && wifi.isAvailable()) {
-                complianceStatus.put("wifi", true);
-            } else {
-                complianceStatus.put("wifi", false);
-            }
+            complianceStatus.put("wifi", wifi != null && wifi.isAvailable());
 
             NetworkInfo bt = connManager.getNetworkInfo(ConnectivityManager.TYPE_BLUETOOTH);
-            if (bt != null && bt.isAvailable()) {
-                complianceStatus.put("bt", true);
-            } else {
-                complianceStatus.put("bt", false);
-            }
+            complianceStatus.put("bt", bt != null && bt.isAvailable());
 
             NetworkInfo network = connManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-            if (network != null && network.isAvailable()) {
-                complianceStatus.put("network", true);
-            } else {
-                complianceStatus.put("network", false);
-            }
+            complianceStatus.put("network", network != null && network.isAvailable());
 
             boolean airplane = Settings.Global.getInt(context.getContentResolver(), Settings.Global.AIRPLANE_MODE_ON, 0) != 0;
 

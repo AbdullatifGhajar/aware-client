@@ -25,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -94,7 +95,7 @@ public class Scheduler extends Aware_Sensor {
     private static final Hashtable<String, Hashtable<IntentFilter, BroadcastReceiver>> schedulerListeners = new Hashtable<>();
     //String is the scheduler ID, and hashtable contains list of Uri and ContentObservers
     private static final Hashtable<String, Hashtable<Uri, ContentObserver>> schedulerDataObservers = new Hashtable<>();
-    private static String TAG = "AWARE::Scheduler";
+    private static final String TAG = "AWARE::Scheduler";
 
     /**
      * Save the defined scheduled task
@@ -194,7 +195,7 @@ public class Scheduler extends Aware_Sensor {
                     }
                 } else {
                     try {
-                        Log.d(Scheduler.TAG, "New schedule: " + data.toString());
+                        Log.d(Scheduler.TAG, "New schedule: " + data);
                         context.getContentResolver().insert(Scheduler_Provider.Scheduler_Data.CONTENT_URI, data);
                     } catch (SQLiteException e) {
                         if (Aware.DEBUG) Log.d(TAG, e.getMessage());
@@ -297,7 +298,7 @@ public class Scheduler extends Aware_Sensor {
                     Log.d(Scheduler.TAG, "Updating already existing schedule...");
                     context.getContentResolver().update(Scheduler_Provider.Scheduler_Data.CONTENT_URI, data, Scheduler_Provider.Scheduler_Data.SCHEDULE_ID + " LIKE '" + schedule.getScheduleID() + "' AND " + Scheduler_Provider.Scheduler_Data.PACKAGE_NAME + " LIKE '" + package_name + "'", null);
                 } else {
-                    Log.d(Scheduler.TAG, "New schedule: " + data.toString());
+                    Log.d(Scheduler.TAG, "New schedule: " + data);
                     context.getContentResolver().insert(Scheduler_Provider.Scheduler_Data.CONTENT_URI, data);
                 }
                 if (schedules != null && !schedules.isClosed()) schedules.close();
@@ -371,7 +372,7 @@ public class Scheduler extends Aware_Sensor {
                 data.put(Scheduler_Provider.Scheduler_Data.SCHEDULE, schedule.build().toString());
                 data.put(Scheduler_Provider.Scheduler_Data.PACKAGE_NAME, context.getPackageName());
 
-                Log.d(Scheduler.TAG, "Random schedule: " + data.toString() + "\n");
+                Log.d(Scheduler.TAG, "Random schedule: " + data + "\n");
                 context.getContentResolver().insert(Scheduler_Provider.Scheduler_Data.CONTENT_URI, data);
             }
 
@@ -552,13 +553,11 @@ public class Scheduler extends Aware_Sensor {
         long random_seed_int = 13;
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(random_seed.getBytes("UTF-8"));
+            md.update(random_seed.getBytes(StandardCharsets.UTF_8));
             byte[] digest = md.digest();
             random_seed_int = (((((((digest[0] << 8 + digest[1]) << 8 + digest[2]) << 8 + digest[3]) << 8)
                     + digest[4] << 8) + digest[5] << 8) + digest[6] << 8) + digest[7];
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
@@ -670,7 +669,7 @@ public class Scheduler extends Aware_Sensor {
                                     public void onReceive(Context context, Intent intent) {
                                         if (is_trigger(schedule)) {
                                             if (DEBUG)
-                                                Log.d(TAG, "Triggered contextual trigger: " + contexts.toString());
+                                                Log.d(TAG, "Triggered contextual trigger: " + contexts);
 
                                             performAction(schedule);
                                         }
@@ -685,7 +684,7 @@ public class Scheduler extends Aware_Sensor {
                                 registerReceiver(listener, filter);
 
                                 if (DEBUG)
-                                    Log.d(TAG, "Registered a contextual trigger for " + contexts.toString());
+                                    Log.d(TAG, "Registered a contextual trigger for " + contexts);
 
                             } else {
 
@@ -726,7 +725,7 @@ public class Scheduler extends Aware_Sensor {
                                 schedulerDataObservers.put(schedule.getScheduleID(), dataObs);
 
                                 if (DEBUG)
-                                    Log.d(TAG, "Registered conditional triggers: " + conditions.toString());
+                                    Log.d(TAG, "Registered conditional triggers: " + conditions);
 
                             } else {
                                 if (DEBUG)
@@ -831,7 +830,7 @@ public class Scheduler extends Aware_Sensor {
                     return true;
                 } else {
                     if (DEBUG) Log.d(Scheduler.TAG,
-                            "Not the right time to trigger...: \nNow: " + now.getTime().toString() + " vs trigger: " + new Date(schedule.getTimer()).toString()
+                            "Not the right time to trigger...: \nNow: " + now.getTime().toString() + " vs trigger: " + new Date(schedule.getTimer())
                                     + "\n Time to trigger: " + Converters.readable_elapsed(schedule.getTimer() - now.getTimeInMillis()));
                     return false;
                 }
@@ -975,7 +974,7 @@ public class Scheduler extends Aware_Sensor {
                 int minute = minutes.getInt(i);
 
                 if (DEBUG)
-                    Log.d(Scheduler.TAG, "Minute " + minute + " vs now " + now.get(Calendar.MINUTE) + " in trigger minutes: " + minutes.toString());
+                    Log.d(Scheduler.TAG, "Minute " + minute + " vs now " + now.get(Calendar.MINUTE) + " in trigger minutes: " + minutes);
 
                 if ((int) now.get(Calendar.MINUTE) == minute) return true;
             }
@@ -1006,7 +1005,7 @@ public class Scheduler extends Aware_Sensor {
                 int hour = hours.getInt(i);
 
                 if (DEBUG)
-                    Log.d(Scheduler.TAG, "Hour " + hour + " vs now " + now.get(Calendar.HOUR_OF_DAY) + " in trigger hours: " + hours.toString());
+                    Log.d(Scheduler.TAG, "Hour " + hour + " vs now " + now.get(Calendar.HOUR_OF_DAY) + " in trigger hours: " + hours);
 
                 if (hour == (int) now.get(Calendar.HOUR_OF_DAY)) return true;
             }
@@ -1037,9 +1036,9 @@ public class Scheduler extends Aware_Sensor {
                 String weekday = weekdays.getString(i);
 
                 if (DEBUG)
-                    Log.d(Scheduler.TAG, "Weekday " + weekday.toUpperCase() + " vs now " + now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()).toUpperCase() + " in trigger weekdays: " + weekdays.toString());
+                    Log.d(Scheduler.TAG, "Weekday " + weekday.toUpperCase() + " vs now " + now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()).toUpperCase() + " in trigger weekdays: " + weekdays);
 
-                if (weekday.toUpperCase().equals(now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()).toUpperCase()))
+                if (weekday.equalsIgnoreCase(now.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault())))
                     return true;
             }
 
@@ -1070,9 +1069,9 @@ public class Scheduler extends Aware_Sensor {
                 String month = months.getString(i);
 
                 if (DEBUG)
-                    Log.d(Scheduler.TAG, "Month " + month.toUpperCase() + " vs now " + now.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()).toUpperCase() + " in trigger months: " + months.toString());
+                    Log.d(Scheduler.TAG, "Month " + month.toUpperCase() + " vs now " + now.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()).toUpperCase() + " in trigger months: " + months);
 
-                if (month.toUpperCase().equals(now.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()).toUpperCase()))
+                if (month.equalsIgnoreCase(now.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())))
                     return true;
             }
         } catch (JSONException e) {
@@ -1221,8 +1220,8 @@ public class Scheduler extends Aware_Sensor {
     public static class Schedule {
 
         private JSONObject schedule = new JSONObject();
-        private JSONObject trigger = new JSONObject();
-        private JSONObject action = new JSONObject();
+        private final JSONObject trigger = new JSONObject();
+        private final JSONObject action = new JSONObject();
 
         public Schedule(String schedule_id) {
             try {

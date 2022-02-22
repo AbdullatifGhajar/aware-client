@@ -207,7 +207,7 @@ public class Mqtt extends Aware_Sensor implements MqttCallback {
         sendBroadcast(mqttMsg);
 
         if (Aware.DEBUG)
-            Log.d(TAG, "MQTT: Message received: \n topic = " + topic + "\n message = " + message.toString());
+            Log.d(TAG, "MQTT: Message received: \n topic = " + topic + "\n message = " + message);
 
         String study_id = "";
         if (Aware.isStudy(getApplicationContext())) {

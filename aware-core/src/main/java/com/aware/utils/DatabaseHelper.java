@@ -33,15 +33,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private final boolean DEBUG = true;
 
-    private String TAG = "AwareDBHelper";
+    private final String TAG = "AwareDBHelper";
 
-    private String databaseName;
-    private String[] databaseTables;
-    private String[] tableFields;
-    private int newVersion;
-    private CursorFactory cursorFactory;
+    private final String databaseName;
+    private final String[] databaseTables;
+    private final String[] tableFields;
+    private final int newVersion;
+    private final CursorFactory cursorFactory;
     private SQLiteDatabase database;
-    private Context mContext;
+    private final Context mContext;
 
     private HashMap<String, String> renamed_columns = new HashMap<>();
 

@@ -26,7 +26,7 @@ import javax.net.ssl.TrustManagerFactory;
  */
 public class SSLUtils {
 
-    private Context mContext;
+    private final Context mContext;
 
     public SSLUtils( Context c ) {
         mContext = c;

@@ -129,7 +129,7 @@ public class Applications extends AccessibilityService {
                 rowData.put(Applications_Notifications.DEFAULTS, notificationDetails.defaults);
                 rowData.put(Applications_Notifications.FLAGS, notificationDetails.flags);
 
-                if (DEBUG) Log.d(TAG, "New notification:" + rowData.toString());
+                if (DEBUG) Log.d(TAG, "New notification:" + rowData);
 
                 getContentResolver().insert(Applications_Notifications.CONTENT_URI, rowData);
 
@@ -185,7 +185,7 @@ public class Applications extends AccessibilityService {
                 rowData.put(Applications_Foreground.APPLICATION_NAME, appName);
                 rowData.put(Applications_Foreground.IS_SYSTEM_APP, pkgInfo != null && isSystemPackage(pkgInfo));
 
-                if (DEBUG) Log.d(TAG, "FOREGROUND: " + rowData.toString());
+                if (DEBUG) Log.d(TAG, "FOREGROUND: " + rowData);
 
                 try {
                     getContentResolver().insert(Applications_Foreground.CONTENT_URI, rowData);
@@ -237,7 +237,7 @@ public class Applications extends AccessibilityService {
 
                             if (awareSensor != null) awareSensor.onCrash(crashData);
 
-                            if (DEBUG) Log.d(TAG, "Crashed: " + crashData.toString());
+                            if (DEBUG) Log.d(TAG, "Crashed: " + crashData);
 
                             Intent crashed = new Intent(ACTION_AWARE_APPLICATIONS_CRASHES);
                             crashed.putExtra(EXTRA_DATA, crashData);
@@ -269,7 +269,7 @@ public class Applications extends AccessibilityService {
 
             getContentResolver().insert(Keyboard_Provider.Keyboard_Data.CONTENT_URI, keyboard);
 
-            if (DEBUG) Log.d(TAG, "Keyboard: " + keyboard.toString());
+            if (DEBUG) Log.d(TAG, "Keyboard: " + keyboard);
 
             Intent keyboard_data = new Intent(Keyboard.ACTION_AWARE_KEYBOARD);
             sendBroadcast(keyboard_data);
@@ -295,7 +295,7 @@ public class Applications extends AccessibilityService {
 
                         getContentResolver().insert(Screen_Provider.Screen_Touch.CONTENT_URI, touch);
 
-                        if (DEBUG) Log.d(TAG, "Touch: " + touch.toString());
+                        if (DEBUG) Log.d(TAG, "Touch: " + touch);
 
                         Intent touch_data = new Intent(Screen.ACTION_AWARE_TOUCH_SCROLLED_UP);
                         sendBroadcast(touch_data);
@@ -315,7 +315,7 @@ public class Applications extends AccessibilityService {
 
                         getContentResolver().insert(Screen_Provider.Screen_Touch.CONTENT_URI, touch);
 
-                        if (DEBUG) Log.d(TAG, "Touch: " + touch.toString());
+                        if (DEBUG) Log.d(TAG, "Touch: " + touch);
 
                         Intent touch_data = new Intent(Screen.ACTION_AWARE_TOUCH_SCROLLED_DOWN);
                         sendBroadcast(touch_data);
@@ -343,7 +343,7 @@ public class Applications extends AccessibilityService {
 
                 getContentResolver().insert(Screen_Provider.Screen_Touch.CONTENT_URI, touch);
 
-                if (DEBUG) Log.d(TAG, "Touch: " + touch.toString());
+                if (DEBUG) Log.d(TAG, "Touch: " + touch);
 
                 Intent touch_data = new Intent(Screen.ACTION_AWARE_TOUCH_CLICKED);
                 sendBroadcast(touch_data);
@@ -367,7 +367,7 @@ public class Applications extends AccessibilityService {
 
                 getContentResolver().insert(Screen_Provider.Screen_Touch.CONTENT_URI, touch);
 
-                if (DEBUG) Log.d(TAG, "Touch: " + touch.toString());
+                if (DEBUG) Log.d(TAG, "Touch: " + touch);
 
                 Intent touch_data = new Intent(Screen.ACTION_AWARE_TOUCH_LONG_CLICKED);
                 sendBroadcast(touch_data);

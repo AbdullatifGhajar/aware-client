@@ -67,11 +67,11 @@ public class Proximity extends Aware_Sensor implements SensorEventListener {
      * Until today, no available Android phone samples higher than 208Hz (Nexus 7).
      * http://ilessendata.blogspot.com/2012/11/android-accelerometer-sampling-rates.html
      */
-    private List<ContentValues> data_values = new ArrayList<ContentValues>();
+    private final List<ContentValues> data_values = new ArrayList<ContentValues>();
 
     private static String LABEL = "";
 
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -185,7 +185,7 @@ public class Proximity extends Aware_Sensor implements SensorEventListener {
 
             getContentResolver().insert(Proximity_Sensor.CONTENT_URI, rowData);
 
-            if (Aware.DEBUG) Log.d(TAG, "Proximity sensor: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Proximity sensor: " + rowData);
         }
         if (sensorInfo != null && !sensorInfo.isClosed()) sensorInfo.close();
     }

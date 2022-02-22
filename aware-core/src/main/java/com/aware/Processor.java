@@ -48,7 +48,7 @@ public class Processor extends Aware_Sensor {
      */
     public static final String ACTION_AWARE_PROCESSOR_RELAXED = "ACTION_AWARE_PROCESSOR_RELAXED";
 
-    private static Handler mHandler = new Handler();
+    private static final Handler mHandler = new Handler();
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {

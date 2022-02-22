@@ -35,7 +35,7 @@ import com.aware.utils.Aware_Sensor;
  */
 public class Network extends Aware_Sensor {
 
-    private static String TAG = "AWARE::Network";
+    private static final String TAG = "AWARE::Network";
 
     /**
      * Network type: airplane (constant = -1 )
@@ -197,7 +197,7 @@ public class Network extends Aware_Sensor {
         void onAirplaneOFF();
     }
 
-    private PhoneStateListener phoneListener = new PhoneStateListener() {
+    private final PhoneStateListener phoneListener = new PhoneStateListener() {
         public void onServiceStateChanged(android.telephony.ServiceState serviceState) {
             if (serviceState.getState() == ServiceState.STATE_POWER_OFF) {
                 ContentValues mobile = new ContentValues();
@@ -244,7 +244,6 @@ public class Network extends Aware_Sensor {
             }
         }
 
-        ;
     };
 
     /**

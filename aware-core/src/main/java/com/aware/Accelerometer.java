@@ -61,9 +61,9 @@ public class Accelerometer extends Aware_Sensor implements SensorEventListener {
     public static final String ACTION_AWARE_ACCELEROMETER_LABEL = "ACTION_AWARE_ACCELEROMETER_LABEL";
     public static final String EXTRA_LABEL = "label";
 
-    private List<ContentValues> data_values = new ArrayList<>();
+    private final List<ContentValues> data_values = new ArrayList<>();
 
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -207,7 +207,7 @@ public class Accelerometer extends Aware_Sensor implements SensorEventListener {
 
             getContentResolver().insert(Accelerometer_Sensor.CONTENT_URI, rowData);
 
-            if (Aware.DEBUG) Log.d(TAG, "Accelerometer device:" + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Accelerometer device:" + rowData);
         }
         if (accelInfo != null && !accelInfo.isClosed()) accelInfo.close();
     }

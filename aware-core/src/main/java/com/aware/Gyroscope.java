@@ -40,7 +40,7 @@ public class Gyroscope extends Aware_Sensor implements SensorEventListener {
     /**
      * Logging tag (default = "AWARE::Gyroscope")
      */
-    private static String TAG = "AWARE::Gyroscope";
+    private static final String TAG = "AWARE::Gyroscope";
 
     private static SensorManager mSensorManager;
     private static Sensor mGyroscope;
@@ -73,11 +73,11 @@ public class Gyroscope extends Aware_Sensor implements SensorEventListener {
      * Until today, no available Android phone samples higher than 208Hz (Nexus 7).
      * http://ilessendata.blogspot.com/2012/11/android-accelerometer-sampling-rates.html
      */
-    private List<ContentValues> data_values = new ArrayList<>();
+    private final List<ContentValues> data_values = new ArrayList<>();
 
     private static String LABEL = "";
 
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -227,7 +227,7 @@ public class Gyroscope extends Aware_Sensor implements SensorEventListener {
             gyro_dev.putExtra(EXTRA_SENSOR, rowData);
             sendBroadcast(gyro_dev);
 
-            if (Aware.DEBUG) Log.d(TAG, "Gyroscope info: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Gyroscope info: " + rowData);
         }
         if (gyroInfo != null && !gyroInfo.isClosed()) gyroInfo.close();
     }

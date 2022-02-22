@@ -96,7 +96,7 @@ public class SignificantMotion extends Aware_Sensor implements SensorEventListen
                 getContentResolver().insert(Significant_Provider.Significant_Data.CONTENT_URI, rowData);
 
                 if (DEBUG)
-                    Log.d(SignificantMotion.TAG, "Significant motion: " + rowData.toString());
+                    Log.d(SignificantMotion.TAG, "Significant motion: " + rowData);
 
                 Intent sigmotion = new Intent();
                 if (CURRENT_SIGMOTION_STATE) {
@@ -170,7 +170,7 @@ public class SignificantMotion extends Aware_Sensor implements SensorEventListen
         if (Aware.DEBUG) Log.d(TAG, "Significant motion service destroyed...");
     }
 
-    private ArrayList<Double> buffer = new ArrayList<>();
+    private final ArrayList<Double> buffer = new ArrayList<>();
 
     @Override
     public void onSensorChanged(SensorEvent event) {

@@ -14,10 +14,10 @@ import javax.net.ssl.X509TrustManager;
 //Inspired by: http://nelenkov.blogspot.ie/2011/12/using-custom-certificate-trust-store-on.html
 public class AwareTrustManager implements X509TrustManager {
 	
-	private X509TrustManager defaultTrust;
-	private X509TrustManager localTrust;
+	private final X509TrustManager defaultTrust;
+	private final X509TrustManager localTrust;
 	
-	private X509Certificate[] acceptedIssuers;
+	private final X509Certificate[] acceptedIssuers;
 	
 	public AwareTrustManager( KeyStore localStore ) {
 		try {
@@ -68,7 +68,7 @@ public class AwareTrustManager implements X509TrustManager {
 	}
 	
 	static class LocalStoreTrustManager implements X509TrustManager {
-		private X509TrustManager trustManager;
+		private final X509TrustManager trustManager;
 		public LocalStoreTrustManager( KeyStore localStore ) {
 			try {
 				TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
@@ -101,7 +101,7 @@ public class AwareTrustManager implements X509TrustManager {
 	}
 	
 	static X509TrustManager findX509TrustManager(TrustManagerFactory tmf) {
-		TrustManager tms[] = tmf.getTrustManagers();
+		TrustManager[] tms = tmf.getTrustManagers();
 		for(int i = 0; i < tms.length; i++ ) {
 			if( tms[i] instanceof X509TrustManager ) {
 				return (X509TrustManager) tms[i];

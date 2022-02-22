@@ -42,7 +42,7 @@ public class Magnetometer extends Aware_Sensor implements SensorEventListener {
     /**
      * Logging tag (default = "AWARE::Magnetometer")
      */
-    private static String TAG = "AWARE::Magnetometer";
+    private static final String TAG = "AWARE::Magnetometer";
 
     private static SensorManager mSensorManager;
     private static Sensor mMagnetometer;
@@ -72,11 +72,11 @@ public class Magnetometer extends Aware_Sensor implements SensorEventListener {
      * Until today, no available Android phone samples higher than 208Hz (Nexus 7).
      * http://ilessendata.blogspot.com/2012/11/android-accelerometer-sampling-rates.html
      */
-    private List<ContentValues> data_values = new ArrayList<ContentValues>();
+    private final List<ContentValues> data_values = new ArrayList<ContentValues>();
 
     private static String LABEL = "";
 
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -196,7 +196,7 @@ public class Magnetometer extends Aware_Sensor implements SensorEventListener {
 
             getContentResolver().insert(Magnetometer_Sensor.CONTENT_URI, rowData);
 
-            if (Aware.DEBUG) Log.d(TAG, "Magnetometer sensor: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Magnetometer sensor: " + rowData);
         }
         if (sensorInfo != null && !sensorInfo.isClosed()) sensorInfo.close();
     }

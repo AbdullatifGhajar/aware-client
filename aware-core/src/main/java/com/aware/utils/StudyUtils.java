@@ -160,7 +160,7 @@ public class StudyUtils extends IntentService {
                     getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                     if (Aware.DEBUG) {
-                        Log.d(Aware.TAG, "New study data: " + studyData.toString());
+                        Log.d(Aware.TAG, "New study data: " + studyData);
                     }
                 } else {
                     //User rejoined a study he was already part of. Mark as abandoned.
@@ -196,7 +196,7 @@ public class StudyUtils extends IntentService {
                     getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                     if (Aware.DEBUG) {
-                        Log.d(Aware.TAG, "Rejoined study data: " + studyData.toString());
+                        Log.d(Aware.TAG, "Rejoined study data: " + studyData);
                     }
                 }
 
@@ -412,7 +412,7 @@ public class StudyUtils extends IntentService {
             String title = scheduleJson.getString("title");
             Scheduler.Schedule schedule = new Scheduler.Schedule(title);
 
-            if (Aware.DEBUG) Log.d(Aware.TAG, "Creating ESM schedule: " + scheduleJson.toString());
+            if (Aware.DEBUG) Log.d(Aware.TAG, "Creating ESM schedule: " + scheduleJson);
 
             // Set schedule parameters
             switch (type) {

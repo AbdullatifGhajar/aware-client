@@ -291,7 +291,7 @@ public class Communication extends Aware_Sensor {
         }
     }
 
-    private PhoneState phoneState = new PhoneState();
+    private final PhoneState phoneState = new PhoneState();
 
     private class PhoneState extends PhoneStateListener {
         @Override

@@ -79,7 +79,7 @@ public class Timezone extends Aware_Sensor {
         if (Aware.DEBUG) Log.d(TAG, "Timezone service created");
     }
 
-    private TimezoneObserver timezoneObserver = new TimezoneObserver();
+    private final TimezoneObserver timezoneObserver = new TimezoneObserver();
 
     public class TimezoneObserver extends BroadcastReceiver {
         @Override

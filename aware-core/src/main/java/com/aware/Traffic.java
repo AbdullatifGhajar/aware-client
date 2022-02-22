@@ -39,7 +39,7 @@ public class Traffic extends Aware_Sensor {
 
     private TelephonyManager telephonyManager;
 
-    private static Handler mHandler = new Handler();
+    private static final Handler mHandler = new Handler();
     private final Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
@@ -66,7 +66,7 @@ public class Traffic extends Aware_Sensor {
 
             if (awareSensor != null) awareSensor.onWiFiTraffic(wifi);
 
-            if (Aware.DEBUG) Log.d(TAG, "Wifi:" + wifi.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Wifi:" + wifi);
 
             ContentValues network = new ContentValues();
             network.put(Traffic_Data.TIMESTAMP, System.currentTimeMillis());
@@ -79,7 +79,7 @@ public class Traffic extends Aware_Sensor {
             getContentResolver().insert(Traffic_Data.CONTENT_URI, network);
 
             if (awareSensor != null) awareSensor.onNetworkTraffic(network);
-            if (Aware.DEBUG) Log.d(TAG, "Network: " + network.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Network: " + network);
 
             Intent traffic = new Intent(ACTION_AWARE_NETWORK_TRAFFIC);
             sendBroadcast(traffic);
@@ -203,7 +203,7 @@ public class Traffic extends Aware_Sensor {
         return START_STICKY;
     }
 
-    private NetworkTrafficObserver networkTrafficObserver = new NetworkTrafficObserver();
+    private final NetworkTrafficObserver networkTrafficObserver = new NetworkTrafficObserver();
 
     public class NetworkTrafficObserver extends PhoneStateListener {
         @Override

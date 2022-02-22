@@ -28,7 +28,7 @@ import com.aware.utils.Aware_Sensor;
  */
 public class Screen extends Aware_Sensor {
 
-    private static String TAG = "AWARE::Screen";
+    private static final String TAG = "AWARE::Screen";
 
     /**
      * Broadcasted event: screen is on

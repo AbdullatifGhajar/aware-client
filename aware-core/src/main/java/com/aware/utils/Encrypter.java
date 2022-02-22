@@ -87,7 +87,7 @@ public class Encrypter {
             // Create Hash
             MessageDigest digest = java.security.MessageDigest.getInstance(hash_function);
             digest.update(clear.getBytes());
-            byte messageDigest[] = digest.digest();
+            byte[] messageDigest = digest.digest();
 
             // Create Hex String
             StringBuffer hexString = new StringBuffer();

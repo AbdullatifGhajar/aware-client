@@ -39,7 +39,7 @@ import java.util.concurrent.Executors;
  */
 public class WiFi extends Aware_Sensor {
 
-    private static String TAG = "AWARE::WiFi";
+    private static final String TAG = "AWARE::WiFi";
 
     private static AlarmManager alarmManager = null;
     private static WifiManager wifiManager = null;
@@ -192,8 +192,8 @@ public class WiFi extends Aware_Sensor {
      * Asynchronously get the AP we are currently connected to.
      */
     private static class WifiInfoFetch implements Callable<String> {
-        private Context mContext;
-        private WifiInfo mWifi;
+        private final Context mContext;
+        private final WifiInfo mWifi;
 
         WifiInfoFetch(Context c, WifiInfo w) {
             mContext = c;
@@ -216,7 +216,7 @@ public class WiFi extends Aware_Sensor {
                 currentAp.putExtra(EXTRA_DATA, rowData);
                 mContext.sendBroadcast(currentAp);
 
-                if (Aware.DEBUG) Log.d(TAG, "WiFi local sensor information: " + rowData.toString());
+                if (Aware.DEBUG) Log.d(TAG, "WiFi local sensor information: " + rowData);
 
             } catch (SQLiteException e) {
                 if (Aware.DEBUG) Log.d(TAG, e.getMessage());
@@ -232,8 +232,8 @@ public class WiFi extends Aware_Sensor {
      * Asynchronously process the APs we can see around us
      */
     private static class WifiApResults implements Callable<String> {
-        private Context mContext;
-        private List<ScanResult> mAPS;
+        private final Context mContext;
+        private final List<ScanResult> mAPS;
 
         WifiApResults(Context c, List<ScanResult> aps) {
             mContext = c;
@@ -261,7 +261,7 @@ public class WiFi extends Aware_Sensor {
                     if (awareSensor != null) awareSensor.onWiFiAPDetected(rowData);
 
                     if (Aware.DEBUG)
-                        Log.d(TAG, ACTION_AWARE_WIFI_NEW_DEVICE + ": " + rowData.toString());
+                        Log.d(TAG, ACTION_AWARE_WIFI_NEW_DEVICE + ": " + rowData);
 
                     Intent detectedAP = new Intent(ACTION_AWARE_WIFI_NEW_DEVICE);
                     detectedAP.putExtra(EXTRA_DATA, rowData);

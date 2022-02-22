@@ -28,7 +28,7 @@ import org.json.JSONObject;
  */
 public class JoinStudyDialog extends DialogFragment {
     private static final String TAG = "AWARE::JoinStudyDialog";
-    private Activity mActivity;
+    private final Activity mActivity;
     private ProgressBar mProgressBar;
 
     public JoinStudyDialog(Activity activity) {

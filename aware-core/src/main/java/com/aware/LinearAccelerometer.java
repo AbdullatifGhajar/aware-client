@@ -38,7 +38,7 @@ public class LinearAccelerometer extends Aware_Sensor implements SensorEventList
     /**
      * Logging tag (default = "AWARE::LinearAcc.")
      */
-    private static String TAG = "AWARE::Linear Acc.";
+    private static final String TAG = "AWARE::Linear Acc.";
 
     private static SensorManager mSensorManager;
     private static Sensor mLinearAccelerator;
@@ -68,11 +68,11 @@ public class LinearAccelerometer extends Aware_Sensor implements SensorEventList
      * Until today, no available Android phone samples higher than 208Hz (Nexus 7).
      * http://ilessendata.blogspot.com/2012/11/android-accelerometer-sampling-rates.html
      */
-    private List<ContentValues> data_values = new ArrayList<ContentValues>();
+    private final List<ContentValues> data_values = new ArrayList<ContentValues>();
 
     private static String LABEL = "";
 
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -218,7 +218,7 @@ public class LinearAccelerometer extends Aware_Sensor implements SensorEventList
 
             getContentResolver().insert(Linear_Accelerometer_Sensor.CONTENT_URI, rowData);
 
-            if (Aware.DEBUG) Log.d(TAG, "Linear-accelerometer sensor: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Linear-accelerometer sensor: " + rowData);
         }
         if (accelInfo != null && !accelInfo.isClosed()) accelInfo.close();
     }

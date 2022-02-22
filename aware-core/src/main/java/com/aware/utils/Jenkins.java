@@ -13,7 +13,7 @@ import org.json.JSONObject;
 // TODO RIO: What does this jenkins do?
 public class Jenkins {
 
-    private String TAG = "AWARE:Jenkins";
+    private final String TAG = "AWARE:Jenkins";
 
     /**
      * Creates a Jenkins API client.

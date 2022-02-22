@@ -157,9 +157,9 @@ public class Aware_Plugin extends Service {
      * @author denzil
      */
     public static class ContextBroadcaster extends BroadcastReceiver {
-        private ContextProducer cp;
-        private String tag;
-        private String provider;
+        private final ContextProducer cp;
+        private final String tag;
+        private final String provider;
 
         public ContextBroadcaster(ContextProducer contextProducer, String logcatTag, String providerAuthority) {
             this.cp = contextProducer;

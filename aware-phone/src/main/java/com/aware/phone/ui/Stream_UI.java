@@ -234,7 +234,7 @@ public class Stream_UI extends Aware_Activity {
         unregisterReceiver(stream_updater);
     }
 
-    private StreamUpdater stream_updater = new StreamUpdater();
+    private final StreamUpdater stream_updater = new StreamUpdater();
 
     public class StreamUpdater extends BroadcastReceiver {
         @Override

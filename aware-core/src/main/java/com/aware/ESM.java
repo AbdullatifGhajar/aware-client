@@ -37,7 +37,7 @@ public class ESM extends Aware_Sensor {
     /**
      * Logging tag (default = "AWARE::ESM")
      */
-    private static String TAG = "AWARE::ESM";
+    private static final String TAG = "AWARE::ESM";
 
     /**
      * Received event: queue the specified ESM
@@ -400,7 +400,7 @@ public class ESM extends Aware_Sensor {
 
                 try {
                     context.getContentResolver().insert(ESM_Data.CONTENT_URI, rowData);
-                    if (Aware.DEBUG) Log.d(TAG, "ESM: " + rowData.toString());
+                    if (Aware.DEBUG) Log.d(TAG, "ESM: " + rowData);
                 } catch (SQLiteException e) {
                     if (Aware.DEBUG) Log.d(TAG, e.getMessage());
                 }
@@ -473,7 +473,7 @@ public class ESM extends Aware_Sensor {
         private long display_timestamp = 0;
         private int expires_in_seconds = 0;
 
-        private Context mContext;
+        private final Context mContext;
         private int mRetries = 0;
 
         ESMNotificationTimeout(Context context, long display_timestamp, int expires_in_seconds, int retries, int esm_id) {

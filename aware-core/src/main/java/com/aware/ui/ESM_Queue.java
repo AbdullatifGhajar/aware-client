@@ -27,7 +27,7 @@ public class ESM_Queue extends FragmentActivity {
 
     public ESM_State esmStateListener = new ESM_State();
 
-    private ESMFactory esmFactory = new ESMFactory();
+    private final ESMFactory esmFactory = new ESMFactory();
 
     @Override
     protected void onCreate(Bundle bundle) {

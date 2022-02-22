@@ -42,7 +42,7 @@ public class Temperature extends Aware_Sensor implements SensorEventListener {
     /**
      * Logging tag (default = "AWARE::Temperature")
      */
-    private static String TAG = "AWARE::Temperature";
+    private static final String TAG = "AWARE::Temperature";
 
     private static SensorManager mSensorManager;
     private static Sensor mTemperature;
@@ -72,11 +72,11 @@ public class Temperature extends Aware_Sensor implements SensorEventListener {
      * Until today, no available Android phone samples higher than 208Hz (Nexus 7).
      * http://ilessendata.blogspot.com/2012/11/android-accelerometer-sampling-rates.html
      */
-    private List<ContentValues> data_values = new ArrayList<ContentValues>();
+    private final List<ContentValues> data_values = new ArrayList<ContentValues>();
 
     private static String LABEL = "";
 
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -190,7 +190,7 @@ public class Temperature extends Aware_Sensor implements SensorEventListener {
             rowData.put(Temperature_Sensor.VERSION, sensor.getVersion());
 
             getContentResolver().insert(Temperature_Sensor.CONTENT_URI, rowData);
-            if (Aware.DEBUG) Log.d(TAG, "Temperature sensor info: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Temperature sensor info: " + rowData);
         }
         if (sensorInfo != null && !sensorInfo.isClosed()) sensorInfo.close();
     }

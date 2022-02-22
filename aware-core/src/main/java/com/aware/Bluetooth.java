@@ -39,7 +39,7 @@ import java.util.HashMap;
  */
 public class Bluetooth extends Aware_Sensor {
 
-    private static String TAG = "AWARE::Bluetooth";
+    private static final String TAG = "AWARE::Bluetooth";
 
     private static AlarmManager alarmManager = null;
     private static PendingIntent bluetoothScan = null;
@@ -84,7 +84,7 @@ public class Bluetooth extends Aware_Sensor {
     /**
      * Request user permission for bt scanning
      */
-    private static String ACTION_AWARE_ENABLE_BT = "ACTION_AWARE_ENABLE_BT";
+    private static final String ACTION_AWARE_ENABLE_BT = "ACTION_AWARE_ENABLE_BT";
 
     private static NotificationManager notificationManager = null;
     private static Intent enableBT = null;
@@ -95,7 +95,7 @@ public class Bluetooth extends Aware_Sensor {
 
     private ScanSettings scanSettings;
     private boolean isBLEScanning = false;
-    private HashMap<String, BluetoothDevice> discoveredBLE = new HashMap<String, BluetoothDevice>();
+    private final HashMap<String, BluetoothDevice> discoveredBLE = new HashMap<String, BluetoothDevice>();
 
     /**
      * Get an instance for the Bluetooth Service
@@ -239,7 +239,7 @@ public class Bluetooth extends Aware_Sensor {
         return START_STICKY;
     }
 
-    private Runnable scanRunnable = new Runnable() {
+    private final Runnable scanRunnable = new Runnable() {
         @Override
         public void run() {
             BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
@@ -255,7 +255,7 @@ public class Bluetooth extends Aware_Sensor {
         }
     };
 
-    private Runnable stopScan = new Runnable() {
+    private final Runnable stopScan = new Runnable() {
         @Override
         public void run() {
             BluetoothLeScanner scanner = bluetoothAdapter.getBluetoothLeScanner();
@@ -300,7 +300,7 @@ public class Bluetooth extends Aware_Sensor {
             }
 
             if (Aware.DEBUG)
-                Log.d(Aware.TAG, ACTION_AWARE_BLUETOOTH_NEW_DEVICE_BLE + ": " + rowData.toString());
+                Log.d(Aware.TAG, ACTION_AWARE_BLUETOOTH_NEW_DEVICE_BLE + ": " + rowData);
 
             Intent detectedBT = new Intent(ACTION_AWARE_BLUETOOTH_NEW_DEVICE_BLE);
             detectedBT.putExtra(EXTRA_DEVICE, rowData);
@@ -393,7 +393,7 @@ public class Bluetooth extends Aware_Sensor {
                 }
 
                 if (Aware.DEBUG)
-                    Log.d(Aware.TAG, ACTION_AWARE_BLUETOOTH_NEW_DEVICE + ": " + rowData.toString());
+                    Log.d(Aware.TAG, ACTION_AWARE_BLUETOOTH_NEW_DEVICE + ": " + rowData);
 
                 Intent detectedBT = new Intent(ACTION_AWARE_BLUETOOTH_NEW_DEVICE);
                 detectedBT.putExtra(EXTRA_DEVICE, rowData);
@@ -476,7 +476,7 @@ public class Bluetooth extends Aware_Sensor {
 
             getContentResolver().insert(Bluetooth_Sensor.CONTENT_URI, rowData);
 
-            if (Aware.DEBUG) Log.d(TAG, "Bluetooth local information: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Bluetooth local information: " + rowData);
         }
         if (sensorBT != null && !sensorBT.isClosed()) sensorBT.close();
     }

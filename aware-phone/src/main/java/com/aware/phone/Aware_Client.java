@@ -163,7 +163,7 @@ public class Aware_Client extends Aware_Activity implements SharedPreferences.On
 
         Aware.setSetting(getApplicationContext(), key, value);
         Preference pref = findPreference(key);
-        if (CheckBoxPreference.class.isInstance(pref)) {
+        if (pref instanceof CheckBoxPreference) {
             CheckBoxPreference check = (CheckBoxPreference) findPreference(key);
             check.setChecked(Aware.getSetting(getApplicationContext(), key).equals("true"));
 
@@ -173,11 +173,11 @@ public class Aware_Client extends Aware_Activity implements SharedPreferences.On
             //Start/Stop sensor
             Aware.startAWARE(getApplicationContext());
         }
-        if (EditTextPreference.class.isInstance(pref)) {
+        if (pref instanceof EditTextPreference) {
             EditTextPreference text = (EditTextPreference) findPreference(key);
             text.setText(Aware.getSetting(getApplicationContext(), key));
         }
-        if (ListPreference.class.isInstance(pref)) {
+        if (pref instanceof ListPreference) {
             ListPreference list = (ListPreference) findPreference(key);
             list.setSummary(list.getEntry());
         }
@@ -198,7 +198,7 @@ public class Aware_Client extends Aware_Activity implements SharedPreferences.On
 
             Preference pref = values[0];
 
-            if (CheckBoxPreference.class.isInstance(pref)) {
+            if (pref instanceof CheckBoxPreference) {
                 CheckBoxPreference check = (CheckBoxPreference) findPreference(pref.getKey());
                 check.setChecked(Aware.getSetting(getApplicationContext(), pref.getKey()).equals("true"));
                 if (check.isChecked()) {
@@ -226,24 +226,24 @@ public class Aware_Client extends Aware_Activity implements SharedPreferences.On
                 }
             }
 
-            if (EditTextPreference.class.isInstance(pref)) {
+            if (pref instanceof EditTextPreference) {
                 EditTextPreference text = (EditTextPreference) findPreference(pref.getKey());
                 text.setText(Aware.getSetting(getApplicationContext(), pref.getKey()));
                 text.setSummary(Aware.getSetting(getApplicationContext(), pref.getKey()));
             }
 
-            if (ListPreference.class.isInstance(pref)) {
+            if (pref instanceof ListPreference) {
                 ListPreference list = (ListPreference) findPreference(pref.getKey());
                 list.setSummary(list.getEntry());
             }
 
-            if (PreferenceScreen.class.isInstance(getPreferenceParent(pref))) {
+            if (getPreferenceParent(pref) instanceof PreferenceScreen) {
                 PreferenceScreen parent = (PreferenceScreen) getPreferenceParent(pref);
                 ListAdapter children = parent.getRootAdapter();
                 boolean is_active = false;
                 for (int i = 0; i < children.getCount(); i++) {
                     Object obj = children.getItem(i);
-                    if (CheckBoxPreference.class.isInstance(obj)) {
+                    if (obj instanceof CheckBoxPreference) {
                         CheckBoxPreference child = (CheckBoxPreference) obj;
                         if (child.getKey().contains("status_")) {
                             if (child.isChecked()) {

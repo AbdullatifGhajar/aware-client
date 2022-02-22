@@ -62,9 +62,9 @@ public class Barometer extends Aware_Sensor implements SensorEventListener {
     public static final String ACTION_AWARE_BAROMETER_LABEL = "ACTION_AWARE_BAROMETER_LABEL";
     public static final String EXTRA_LABEL = "label";
 
-    private List<ContentValues> data_values = new ArrayList<ContentValues>();
+    private final List<ContentValues> data_values = new ArrayList<ContentValues>();
     private static String LABEL = "";
-    private static DataLabel dataLabeler = new DataLabel();
+    private static final DataLabel dataLabeler = new DataLabel();
 
     public static class DataLabel extends BroadcastReceiver {
         @Override
@@ -181,7 +181,7 @@ public class Barometer extends Aware_Sensor implements SensorEventListener {
 
             getContentResolver().insert(Barometer_Sensor.CONTENT_URI, rowData);
 
-            if (Aware.DEBUG) Log.d(TAG, "Barometer sensor info: " + rowData.toString());
+            if (Aware.DEBUG) Log.d(TAG, "Barometer sensor info: " + rowData);
         }
         if (sensorInfo != null && !sensorInfo.isClosed()) sensorInfo.close();
     }

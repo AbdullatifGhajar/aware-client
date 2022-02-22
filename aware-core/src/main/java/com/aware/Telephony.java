@@ -55,10 +55,10 @@ import java.util.List;
  */
 public class Telephony extends Aware_Sensor {
 
-    private static String TAG = "AWARE::Telephony";
+    private static final String TAG = "AWARE::Telephony";
 
     private TelephonyManager telephonyManager = null;
-    private TelephonyState telephonyState = new TelephonyState();
+    private final TelephonyState telephonyState = new TelephonyState();
     private static SignalStrength lastSignalStrength = null;
 
     /**
@@ -208,7 +208,7 @@ public class Telephony extends Aware_Sensor {
                     Intent newGSM = new Intent(Telephony.ACTION_AWARE_GSM_TOWER);
                     sendBroadcast(newGSM);
 
-                    if (Aware.DEBUG) Log.d(TAG, "GSM tower:" + rowData.toString());
+                    if (Aware.DEBUG) Log.d(TAG, "GSM tower:" + rowData);
                 } catch (SQLiteException e) {
                     if (Aware.DEBUG) Log.d(TAG, e.getMessage());
                 } catch (SQLException e) {
@@ -322,7 +322,7 @@ public class Telephony extends Aware_Sensor {
                             Intent newGSMNeighbor = new Intent(Telephony.ACTION_AWARE_GSM_TOWER_NEIGHBOR);
                             sendBroadcast(newGSMNeighbor);
 
-                            if (Aware.DEBUG) Log.d(TAG, "GSM tower neighbor:" + rowData.toString());
+                            if (Aware.DEBUG) Log.d(TAG, "GSM tower neighbor:" + rowData);
                         } catch (SQLiteException e) {
                             if (Aware.DEBUG) Log.d(TAG, e.getMessage());
                         } catch (SQLException e) {
@@ -356,7 +356,7 @@ public class Telephony extends Aware_Sensor {
                     Intent newCDMA = new Intent(Telephony.ACTION_AWARE_CDMA_TOWER);
                     sendBroadcast(newCDMA);
 
-                    if (Aware.DEBUG) Log.d(TAG, "CDMA tower:" + rowData.toString());
+                    if (Aware.DEBUG) Log.d(TAG, "CDMA tower:" + rowData);
                 } catch (SQLiteException e) {
                     if (Aware.DEBUG) Log.d(TAG, e.getMessage());
                 } catch (SQLException e) {
@@ -390,7 +390,7 @@ public class Telephony extends Aware_Sensor {
                 Intent newTelephony = new Intent(Telephony.ACTION_AWARE_TELEPHONY);
                 sendBroadcast(newTelephony);
 
-                if (Aware.DEBUG) Log.d(TAG, "Telephony:" + rowData.toString());
+                if (Aware.DEBUG) Log.d(TAG, "Telephony:" + rowData);
             } catch (SQLiteException e) {
                 if (Aware.DEBUG) Log.d(TAG, e.getMessage());
             } catch (SQLException e) {

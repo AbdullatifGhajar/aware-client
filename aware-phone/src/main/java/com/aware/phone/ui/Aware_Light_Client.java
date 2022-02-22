@@ -186,7 +186,7 @@ public class Aware_Light_Client extends Aware_Activity {
 
         Aware.setSetting(getApplicationContext(), key, value);
         Preference pref = findPreference(key);
-        if (CheckBoxPreference.class.isInstance(pref)) {
+        if (pref instanceof CheckBoxPreference) {
             CheckBoxPreference check = (CheckBoxPreference) findPreference(key);
             check.setChecked(Aware.getSetting(getApplicationContext(), key).equals("true"));
 
@@ -196,11 +196,11 @@ public class Aware_Light_Client extends Aware_Activity {
             //Start/Stop sensor
             Aware.startAWARE(getApplicationContext());
         }
-        if (EditTextPreference.class.isInstance(pref)) {
+        if (pref instanceof EditTextPreference) {
             EditTextPreference text = (EditTextPreference) findPreference(key);
             text.setText(Aware.getSetting(getApplicationContext(), key));
         }
-        if (ListPreference.class.isInstance(pref)) {
+        if (pref instanceof ListPreference) {
             ListPreference list = (ListPreference) findPreference(key);
             list.setSummary(list.getEntry());
         }
@@ -224,7 +224,7 @@ public class Aware_Light_Client extends Aware_Activity {
             if (pref != null) Log.i(TAG, "Syncing pref with key: " + pref.getKey());
             if (getPreferenceParent(pref) == null) return;
 
-            if (CheckBoxPreference.class.isInstance(pref)) {
+            if (pref instanceof CheckBoxPreference) {
                 CheckBoxPreference check = (CheckBoxPreference) findPreference(pref.getKey());
                 check.setChecked(Aware.getSetting(getApplicationContext(), pref.getKey()).equals("true"));
                 if (check.isChecked()) {
@@ -248,18 +248,18 @@ public class Aware_Light_Client extends Aware_Activity {
                 }
             }
 
-            if (EditTextPreference.class.isInstance(pref)) {
+            if (pref instanceof EditTextPreference) {
                 EditTextPreference text = (EditTextPreference) findPreference(pref.getKey());
                 text.setText(Aware.getSetting(getApplicationContext(), pref.getKey()));
                 text.setSummary(Aware.getSetting(getApplicationContext(), pref.getKey()));
             }
 
-            if (ListPreference.class.isInstance(pref)) {
+            if (pref instanceof ListPreference) {
                 ListPreference list = (ListPreference) findPreference(pref.getKey());
                 list.setSummary(list.getEntry());
             }
 
-            if (PreferenceScreen.class.isInstance(getPreferenceParent(pref))) {
+            if (getPreferenceParent(pref) instanceof PreferenceScreen) {
                 PreferenceScreen parent = (PreferenceScreen) getPreferenceParent(pref);
 
                 boolean prefEnabled = Boolean.valueOf(Aware.getSetting(Aware_Light_Client.this, Aware_Preferences.ENABLE_CONFIG_UPDATE));
@@ -270,7 +270,7 @@ public class Aware_Light_Client extends Aware_Activity {
                 ArrayList sensorStatuses = new ArrayList<String>();
                 for (int i = 0; i < children.getCount(); i++) {
                     Object obj = children.getItem(i);
-                    if (CheckBoxPreference.class.isInstance(obj)) {
+                    if (obj instanceof CheckBoxPreference) {
                         CheckBoxPreference child = (CheckBoxPreference) obj;
                         if (child.getKey().contains("status_")) {
                             sensorStatuses.add(child.getKey());

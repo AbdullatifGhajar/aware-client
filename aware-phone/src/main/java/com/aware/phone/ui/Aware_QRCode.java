@@ -262,7 +262,7 @@ public class Aware_QRCode extends Aware_Activity implements ZBarScannerView.Resu
                         getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                         if (Aware.DEBUG) {
-                            Log.d(Aware.TAG, "New study data: " + studyData.toString());
+                            Log.d(Aware.TAG, "New study data: " + studyData);
                         }
                     } else {
                         //Update the information to the latest
@@ -282,7 +282,7 @@ public class Aware_QRCode extends Aware_Activity implements ZBarScannerView.Resu
                         getContentResolver().insert(Aware_Provider.Aware_Studies.CONTENT_URI, studyData);
 
                         if (Aware.DEBUG) {
-                            Log.d(Aware.TAG, "Re-scanned study data: " + studyData.toString());
+                            Log.d(Aware.TAG, "Re-scanned study data: " + studyData);
                         }
                     }
 

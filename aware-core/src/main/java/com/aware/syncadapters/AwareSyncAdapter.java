@@ -44,13 +44,13 @@ public class AwareSyncAdapter extends AbstractThreadedSyncAdapter {
     private String[] TABLES_FIELDS;
     private Uri[] CONTEXT_URIS;
 
-    private Context mContext;
+    private final Context mContext;
     private NotificationManager notManager;
 
     private final ArrayList<String> highFrequencySensors = new ArrayList<>();
     private final ArrayList<String> dontClearSensors = new ArrayList<>();
 
-    private int notificationID = 99990;
+    private final int notificationID = 99990;
 
     public void init(String[] DATABASE_TABLES, String[] TABLES_FIELDS, Uri[] CONTEXT_URIS) {
         this.DATABASE_TABLES = DATABASE_TABLES;
@@ -599,7 +599,7 @@ public class AwareSyncAdapter extends AbstractThreadedSyncAdapter {
             }
 
             if (DEBUG && rowsDeleted > 0)
-                Log.d(Aware.TAG, "Cleaned " + rowsDeleted + " from " + CONTENT_URI.toString());
+                Log.d(Aware.TAG, "Cleaned " + rowsDeleted + " from " + CONTENT_URI);
         }
     }
 

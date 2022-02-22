@@ -76,7 +76,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity imp
             Preference p = root.getPreference(i);
             if (p == preference)
                 return root;
-            if (PreferenceGroup.class.isInstance(p)) {
+            if (p instanceof PreferenceGroup) {
                 PreferenceGroup parent = getPreferenceParent((PreferenceGroup) p, preference);
                 if (parent != null)
                     return parent;

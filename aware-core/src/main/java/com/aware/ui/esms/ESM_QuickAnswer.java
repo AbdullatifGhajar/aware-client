@@ -41,7 +41,7 @@ public class ESM_QuickAnswer extends ESM_Question {
     }
 
     public ESM_QuickAnswer setQuickAnswers(JSONArray quickAnswers) throws JSONException {
-        this.esm.put(this.esm_quick_answers, quickAnswers);
+        this.esm.put(esm_quick_answers, quickAnswers);
         return this;
     }
 
@@ -119,7 +119,7 @@ public class ESM_QuickAnswer extends ESM_Question {
                             answer.putExtra(ESM.EXTRA_ANSWER, rowData.getAsString(ESM_Provider.ESM_Data.ANSWER));
                             getActivity().sendBroadcast(answer);
 
-                            if (Aware.DEBUG) Log.d(Aware.TAG, "Answer:" + rowData.toString());
+                            if (Aware.DEBUG) Log.d(Aware.TAG, "Answer:" + rowData);
 
                             esm_dialog.dismiss();
 
