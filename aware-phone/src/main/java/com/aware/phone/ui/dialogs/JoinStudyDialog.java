@@ -45,7 +45,7 @@ public class JoinStudyDialog extends DialogFragment {
         builder.setTitle("Study will be loaded. Make sure you have internet.")
                 .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        new ValidateStudyConfig().execute("https://drive.google.com/file/d/1VBFryE_PLrd3S3LZXDhkO9VMfqURBG0J/view?usp=sharing");
+                        new ValidateStudyConfig().execute("https://drive.google.com/file/d/1nBOlevMCaRY_kz7fOT21boTpZ01WFD0_/view?usp=sharing");
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
