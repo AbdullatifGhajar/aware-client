@@ -150,29 +150,31 @@ public class Aware_Join_Study extends Aware_Activity {
             populateStudyInfo(study_configs);
         }
 
-        btnAction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = ((EditText)findViewById(R.id.participant_email)).getText().toString();
-                String password = ((EditText)findViewById(R.id.participant_password)).getText().toString();
+        btnAction.setOnClickListener(e -> {
+            String email = ((EditText)findViewById(R.id.participant_email)).getText().toString();
+            String password = ((EditText)findViewById(R.id.participant_password)).getText().toString();
 
-                if(ServerInterface.Companion.authenticateUser(email, password)){
-                    btnAction.setEnabled(false);
-                    btnAction.setAlpha(0.5f);
-                    Cursor study = Aware.getStudy(getApplicationContext(), study_url);
-                    if (study != null && study.moveToFirst()) {
-                        ContentValues studyData = new ContentValues();
-                        studyData.put(Aware_Provider.Aware_Studies.STUDY_JOINED, System.currentTimeMillis());
-                        studyData.put(Aware_Provider.Aware_Studies.STUDY_EXIT, 0);
-                        getContentResolver().update(Aware_Provider.Aware_Studies.CONTENT_URI, studyData, Aware_Provider.Aware_Studies.STUDY_URL + " LIKE '" + study_url + "'", null);
-                    }
-                    if (study != null && !study.isClosed()) study.close();
+            if(ServerInterface.Companion.authenticateUser(email, password)){
+                btnAction.setEnabled(false);
+                btnAction.setAlpha(0.5f);
+                Cursor study = Aware.getStudy(getApplicationContext(), study_url);
+                if (study != null && study.moveToFirst()) {
+                    ContentValues studyData = new ContentValues();
+                    studyData.put(Aware_Provider.Aware_Studies.STUDY_JOINED, System.currentTimeMillis());
+                    studyData.put(Aware_Provider.Aware_Studies.STUDY_EXIT, 0);
+                    getContentResolver().update(Aware_Provider.Aware_Studies.CONTENT_URI, studyData, Aware_Provider.Aware_Studies.STUDY_URL + " LIKE '" + study_url + "'", null);
+                }
+                if (study != null && !study.isClosed()) study.close();
 
-                    new JoinStudyAsync().execute();
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "invalid email or password", Toast.LENGTH_SHORT).show();
-                }
+                SharedPreferences sharedPref = getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("password", password);
+                editor.apply();
+
+                new JoinStudyAsync().execute();
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "invalid email or password", Toast.LENGTH_SHORT).show();
             }
         });
 

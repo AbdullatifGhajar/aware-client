@@ -46,5 +46,16 @@ class ServerInterface {
                 false
             }
         }
+
+        fun getBalance(email: String, password: String): String {
+            return try {
+                getFromServer(
+                    "/balance",
+                    "email=$email&password=$password"
+                ).getString("balance")
+            } catch (e: ServerException) {
+                "error"
+            }
+        }
     }
 }

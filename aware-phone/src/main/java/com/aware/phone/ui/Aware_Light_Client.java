@@ -36,6 +36,7 @@ import com.aware.Applications;
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
 import com.aware.phone.R;
+import com.aware.phone.ServerInterface;
 import com.aware.ui.PermissionsHandler;
 
 import org.json.JSONArray;
@@ -80,6 +81,11 @@ public class Aware_Light_Client extends Aware_Activity {
         setContentView(R.layout.activity_aware_light);
         if (Aware.isStudy(getApplicationContext())) {
             addPreferencesFromResource(R.xml.pref_aware_light);
+            String email = Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_LABEL);
+            SharedPreferences sharedPref = getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
+            String password = sharedPref.getString("password", "");
+            String balance = ServerInterface.Companion.getBalance(email, password);
+            findPreference("account_balance").setSummary(balance);
         } else {
             addPreferencesFromResource(R.xml.pref_aware_device);
         }

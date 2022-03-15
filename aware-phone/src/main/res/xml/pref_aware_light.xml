@@ -14,14 +14,15 @@
         <EditTextPreference
             android:key="device_label"
             android:persistent="true"
+            android:selectable="false"
             android:summary="%s"
-            android:title="Device label" />
+            android:title="Account" />
         <EditTextPreference
-            android:key="aware_version"
+            android:key="account_balance"
             android:persistent="true"
             android:selectable="false"
             android:summary="%s"
-            android:title="AWARE version" />
+            android:title="Account Balance" />
 <!--        <CheckBoxPreference-->
 <!--            android:defaultValue="false"-->
 <!--            android:key="aware_donate_usage"-->
