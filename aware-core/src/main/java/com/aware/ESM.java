@@ -586,14 +586,12 @@ public class ESM extends Aware_Sensor {
                         Intent esm_done = new Intent(ESM.ACTION_AWARE_ESM_QUEUE_COMPLETE);
                         context.sendBroadcast(esm_done);
 
-                        String toastText = "You earned 1 $";
+                        String toastText = "You earned 1$";
                         try {
                             SharedPreferences loginSharedPref = context.getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
                             String email = loginSharedPref.getString("email", "");
                             String password = loginSharedPref.getString("password", "");
                             ServerInterface.Companion.finishSurvey(email, password, 1);
-
-                            // TODO update balance in view
 
                         } catch(Exception e){
                             SharedPreferences BalanceSharedPref = context.getSharedPreferences("aware.com:balance", Context.MODE_PRIVATE);
