@@ -47,12 +47,16 @@ class ServerInterface {
             }
         }
 
+        fun finishSurvey(survey: String){
+
+        }
+
         fun getBalance(email: String, password: String): String {
             return try {
                 getFromServer(
-                    "/balance",
+                    "/users",
                     "email=$email&password=$password"
-                ).getString("balance")
+                ).getString("balance") + " $"
             } catch (e: ServerException) {
                 "error"
             }
