@@ -81,9 +81,24 @@ public class Aware_Light_Client extends Aware_Activity {
         setContentView(R.layout.activity_aware_light);
         if (Aware.isStudy(getApplicationContext())) {
             addPreferencesFromResource(R.xml.pref_aware_light);
+
+            SharedPreferences loginSharedPref = getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
+            SharedPreferences balanceSharedPref = getSharedPreferences("aware.com:balance", Context.MODE_PRIVATE);
+
             String email = Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_LABEL);
-            SharedPreferences sharedPref = getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
-            String password = sharedPref.getString("password", "");
+            String password = loginSharedPref.getString("password", "");
+            int surveyPoints = balanceSharedPref.getInt("surveyPoints", 0);
+            if (surveyPoints > 0){
+                try{
+                    ServerInterface.Companion.finishSurvey(email, password, surveyPoints);
+
+                    SharedPreferences.Editor editor = balanceSharedPref.edit();
+                    editor.putInt("surveyPoints", 0);
+                    editor.apply();
+                } catch (Exception ignored){
+
+                }
+            }
             String balance = ServerInterface.Companion.getBalance(email, password);
             findPreference("account_balance").setSummary(balance);
         } else {

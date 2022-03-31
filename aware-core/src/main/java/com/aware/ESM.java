@@ -588,13 +588,21 @@ public class ESM extends Aware_Sensor {
 
                         String toastText = "You earned 1 $";
                         try {
-                            SharedPreferences sharedPref = context.getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
-                            String email = sharedPref.getString("email", "");
-                            String password = sharedPref.getString("password", "");
-                            ServerInterface.Companion.finishSurvey(email, password);
+                            SharedPreferences loginSharedPref = context.getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
+                            String email = loginSharedPref.getString("email", "");
+                            String password = loginSharedPref.getString("password", "");
+                            ServerInterface.Companion.finishSurvey(email, password, 1);
+
+                            // TODO update balance in view
 
                         } catch(Exception e){
-                            toastText = "something went wrong. Don't worry, we will give you 1$ anyway";
+                            SharedPreferences BalanceSharedPref = context.getSharedPreferences("aware.com:balance", Context.MODE_PRIVATE);
+                            int surveyPoints = BalanceSharedPref.getInt("surveyPoints", 0);
+                            SharedPreferences.Editor editor = BalanceSharedPref.edit();
+                            editor.putInt("surveyPoints", 1 + surveyPoints);
+                            editor.apply();
+
+                            toastText = "something went wrong. Don't worry, you will get 1$ soon";
                         }
                         Toast.makeText(context,toastText,Toast.LENGTH_LONG).show();
                     }

@@ -47,10 +47,10 @@ class ServerInterface {
             }
         }
 
-        fun finishSurvey(email: String, password: String){
+        fun finishSurvey(email: String, password: String, surveyPoints: Int){
             getFromServer(
                 "/users",
-                "email=$email&password=$password&survey=1"
+                "email=$email&password=$password&survey=$surveyPoints"
             )
         }
 
