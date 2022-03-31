@@ -14,7 +14,7 @@
     <string name="aware_stream">AWARE Stream</string>
     <string name="aware_plugins">AWARE Plugins</string>
     <string name="aware_esm_questions_title">Questionnaire waiting</string>
-    <string name="aware_esm_questions">Tap to answer</string>
+    <string name="aware_esm_questions">Tap to answer &amp; Make sure you have internet</string>
     <string name="aware_activate_accessibility_title">Please enable AWARE</string>
     <string name="aware_activate_accessibility">Tap here to activate accessibility service.</string>
     <string name="aware_activate_battery_optimize_ignore_title">Doze</string>

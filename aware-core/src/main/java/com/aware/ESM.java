@@ -3,7 +3,15 @@ package com.aware;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.*;
+import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SyncRequest;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
 import android.net.Uri;
@@ -13,13 +21,16 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.core.app.NotificationCompat;
+
 import com.aware.providers.ESM_Provider;
 import com.aware.providers.ESM_Provider.ESM_Data;
 import com.aware.ui.ESM_Queue;
 import com.aware.ui.esms.ESMFactory;
 import com.aware.ui.esms.ESM_Question;
 import com.aware.utils.Aware_Sensor;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -574,6 +585,18 @@ public class ESM extends Aware_Sensor {
                         if (Aware.DEBUG) Log.d(TAG, "ESM Queue is done!");
                         Intent esm_done = new Intent(ESM.ACTION_AWARE_ESM_QUEUE_COMPLETE);
                         context.sendBroadcast(esm_done);
+
+                        String toastText = "You earned 1 $";
+                        try {
+                            SharedPreferences sharedPref = context.getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
+                            String email = sharedPref.getString("email", "");
+                            String password = sharedPref.getString("password", "");
+                            ServerInterface.Companion.finishSurvey(email, password);
+
+                        } catch(Exception e){
+                            toastText = "something went wrong. Don't worry, we will give you 1$ anyway";
+                        }
+                        Toast.makeText(context,toastText,Toast.LENGTH_LONG).show();
                     }
                 }
 

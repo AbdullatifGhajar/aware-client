@@ -1,7 +1,7 @@
 @file:JvmName("ServerInterface")
 @file:JvmMultifileClass
 
-package com.aware.phone
+package com.aware
 
 // import com.aware.phone.data.model.LoggedInUser
 import kotlinx.coroutines.Dispatchers
@@ -47,8 +47,11 @@ class ServerInterface {
             }
         }
 
-        fun finishSurvey(survey: String){
-
+        fun finishSurvey(email: String, password: String){
+            getFromServer(
+                "/users",
+                "email=$email&password=$password&survey=1"
+            )
         }
 
         fun getBalance(email: String, password: String): String {

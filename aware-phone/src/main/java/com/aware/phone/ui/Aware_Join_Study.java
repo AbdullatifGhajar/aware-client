@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
 import com.aware.phone.R;
-import com.aware.phone.ServerInterface;
+import com.aware.ServerInterface;
 import com.aware.phone.ui.dialogs.JoinStudyDialog;
 import com.aware.phone.utils.AwareUtil;
 import com.aware.providers.Aware_Provider;
@@ -168,6 +168,7 @@ public class Aware_Join_Study extends Aware_Activity {
 
                 SharedPreferences sharedPref = getSharedPreferences("aware.com:login", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("email", email);
                 editor.putString("password", password);
                 editor.apply();
 

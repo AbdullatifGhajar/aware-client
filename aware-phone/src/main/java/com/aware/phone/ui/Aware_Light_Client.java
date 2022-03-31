@@ -36,7 +36,7 @@ import com.aware.Applications;
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
 import com.aware.phone.R;
-import com.aware.phone.ServerInterface;
+import com.aware.ServerInterface;
 import com.aware.ui.PermissionsHandler;
 
 import org.json.JSONArray;
