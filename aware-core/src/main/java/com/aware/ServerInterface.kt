@@ -60,7 +60,7 @@ class ServerInterface {
                     "/users",
                     "email=$email&password=$password"
                 ).getString("balance") + " $"
-            } catch (e: ServerException) {
+            } catch (e: Exception) {
                 "error"
             }
         }

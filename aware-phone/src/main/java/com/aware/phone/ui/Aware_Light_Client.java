@@ -87,7 +87,7 @@ public class Aware_Light_Client extends Aware_Activity {
 
             String email = Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_LABEL);
             String password = loginSharedPref.getString("password", "");
-            int surveyPoints = balanceSharedPref.getInt("surveyPoints", 0);
+            int surveyPoints = balanceSharedPref.getInt(String.format("surveyPoints:%s", email), 0);
             if (surveyPoints > 0){
                 try{
                     ServerInterface.Companion.finishSurvey(email, password, surveyPoints);
