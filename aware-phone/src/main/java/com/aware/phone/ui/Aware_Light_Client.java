@@ -93,7 +93,7 @@ public class Aware_Light_Client extends Aware_Activity {
                     ServerInterface.Companion.finishSurvey(email, password, surveyPoints);
 
                     SharedPreferences.Editor editor = balanceSharedPref.edit();
-                    editor.putInt("surveyPoints", 0);
+                    editor.putInt(String.format("surveyPoints:%s", email), 0);
                     editor.apply();
                 } catch (Exception ignored){
 

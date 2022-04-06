@@ -597,7 +597,7 @@ public class ESM extends Aware_Sensor {
                             SharedPreferences balanceSharedPref = context.getSharedPreferences("aware.com:balance", Context.MODE_PRIVATE);
                             int surveyPoints = balanceSharedPref.getInt(String.format("surveyPoints:%s", email), 0);
                             SharedPreferences.Editor editor = balanceSharedPref.edit();
-                            editor.putInt("surveyPoints", 1 + surveyPoints);
+                            editor.putInt(String.format("surveyPoints:%s", email), 1 + surveyPoints);
                             editor.apply();
 
                             toastText = "something went wrong. Don't worry, you will get 1$ soon";
